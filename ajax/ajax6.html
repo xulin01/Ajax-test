@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>取消发送ajax/取消重复发送(节流阀)</title>
+</head>
+
+<body>
+    <button class="song">发送ajax请求</button>
+    <button class="xiao">取消ajax请求</button>
+
+
+    <script>
+        var song = document.querySelector('.song');
+        var xiao = document.querySelector('.xiao');
+        var x;
+        var flag = false;
+        song.onclick = function() {
+            if (flag) x.abort();
+            x = new XMLHttpRequest();
+            flag = true;
+            x.open('GET', 'http://127.0.0.1:8000/timeout');
+            x.send();
+
+            if (xhr.readystate == 4) {
+                flag = false;
+            }
+        }
+
+        xiao.onclick = function() {
+            x.abort(); //取消ajax的发送请求
+        }
+    </script>
+
+</body>
+
+</html>

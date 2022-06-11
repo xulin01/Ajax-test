@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <textarea class="te" cols="30" rows="10" style="resize: none;"></textarea>
+    <!-- 实时更改页面内容 -->
+    <script>
+        var te = document.querySelector('textarea');
+        te.onmouseover = function() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000/JSON-express');
+            xhr.send();
+            xhr.onreadystatechange = function() {
+
+
+                if (xhr.readyState == 4) {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        te.innerText = xhr.responseText;
+                    }
+                }
+            }
+        }
+        te.onmouseout = function() {
+            te.innerText = '';
+        }
+    </script>
+</body>
+
+</html>
